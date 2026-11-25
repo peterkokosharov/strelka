@@ -21,9 +21,6 @@ dev = [
     "mypy==1.13.0",
 ]
 
-[project.scripts]
-strelka = "strelka.__main__:main"
-
 [tool.setuptools.packages.find]
 where = ["src"]
 include = ["strelka*", "py_tvision*"]

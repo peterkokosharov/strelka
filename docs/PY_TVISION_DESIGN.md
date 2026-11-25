@@ -392,22 +392,19 @@ Rules for py_tvision:
 
 ## 14. Conflicts found in py_port/ (noted, not fixed)
 
-- `PLAN.md` builds on Textual, Rich, Pydantic and Playwright; `pyproject.toml` and
+- The earlier plan builds on Textual, Rich, Pydantic and Playwright; `pyproject.toml` and
   `requirements.txt` pin them (and disagree: `rich` 13.9.4 vs 14.2.0, `pygments` 2.18.0 vs
   2.19.2). This breaks the stdlib-only rule and is replaced by this design.
 - `src/strelka/config.py` imports `pydantic` and `pydantic_settings`; it must move to
   `tomllib`/`configparser` + plain dataclasses. Layka reads `layka.ini` (inih format); the Python
   port should read the same ini, not invent TOML (check `configparser` differences: inline
   comments, `%` interpolation - use `interpolation=None`).
-- `PLAN.md` describes a JSONL protocol (`token`, `tool_call`, ... outgoing `chat` with `messages`)
+- The earlier plan describes a JSONL protocol (`token`, `tool_call`, ... outgoing `chat` with `messages`)
   that does not match what Layka sends today (`chat` with `text`, `model`, `reset`, `stop`) - the
   C++ `RexBridge` and ai-rex are the source of truth.
-- `PRODUCTION_PLAN.md` says "curses/ANSI" TUI (no curses on Windows) and bundles a kiko_lite
-  gateway and the rex agent loop into one binary - a much larger scope than a Layka port; it also
-  plans in calendar days with three developers.
 - `requires-python = ">=3.11"` while the stated target is >= 3.12; plan files are in Bulgarian
   while the repository's documents are English.
-- Mermaid: `PLAN.md` uses Playwright/kroki; Layka uses the vendored `merman` binary.
+- Mermaid: the earlier plan uses Playwright/kroki; Layka uses the vendored `merman` binary.
 
 ## 15. UI / logic split (owner rule, 2026-11-25)
 

@@ -395,19 +395,16 @@ magiblot и кодът, писан от нула, са под MIT (Copyright 201
 
 ## 14. Противоречия, открити в py_port/ (отбелязани, не поправени)
 
-- `PLAN.md` се гради върху Textual, Rich, Pydantic и Playwright; `pyproject.toml` и
+- Предишният план се гради върху Textual, Rich, Pydantic и Playwright; `pyproject.toml` и
   `requirements.txt` ги фиксират (и си противоречат: `rich` 13.9.4 срещу 14.2.0, `pygments` 2.18.0 срещу
   2.19.2). Това нарушава правилото само за стандартна библиотека и се заменя с този дизайн.
 - `src/strelka/config.py` импортира `pydantic` и `pydantic_settings`; трябва да мине към
   `tomllib`/`configparser` + обикновени dataclass-ове. Layka чете `layka.ini` (формат inih); Python
   портът трябва да чете същия ini, а не да измисля TOML (проверете разликите на `configparser`: вградени
   коментари, интерполация с `%` - ползвайте `interpolation=None`).
-- `PLAN.md` описва JSONL протокол (`token`, `tool_call`, ... изходящо `chat` с `messages`),
+- Предишният план описва JSONL протокол (`token`, `tool_call`, ... изходящо `chat` с `messages`),
   който не съвпада с това, което Layka изпраща днес (`chat` с `text`, `model`, `reset`, `stop`) - C++
   `RexBridge` и ai-rex са източникът на истина.
-- `PRODUCTION_PLAN.md` казва "curses/ANSI" TUI (няма curses на Windows) и обединява шлюз kiko_lite
-  и цикъла на агента rex в един двоичен файл - много по-голям обхват от порт на Layka; планира и
-  в календарни дни с трима разработчици.
 - `requires-python = ">=3.11"`, докато заявената цел е >= 3.12; плановите файлове са на български,
   докато документите в хранилището са на английски.
-- Mermaid: `PLAN.md` ползва Playwright/kroki; Layka ползва включения `merman` двоичен файл.
+- Mermaid: предишният план ползва Playwright/kroki; Layka ползва включения `merman` двоичен файл.
