@@ -1,0 +1,15 @@
+# Runtime dependencies: NONE.
+#
+# Strelka (the Python sibling of the C++ Layka) and the py_tvision TUI toolkit use the Python standard
+# library only (Python >= 3.12). There are no third-party runtime packages.
+#
+# Development / test tooling lives in the "dev" optional group in
+# pyproject.toml and is installed into a virtual environment:
+#
+#     python -m venv .venv
+#     .venv/Scripts/pip install -e ".[dev]"   # Windows
+#     .venv/bin/pip install -e ".[dev]"        # POSIX
+#
+#   pytest   -- test runner
+#   ruff     -- linter / formatter
+#   mypy     -- static type checker

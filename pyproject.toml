@@ -1,0 +1,48 @@
+[build-system]
+requires = ["setuptools>=68.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "strelka"
+version = "0.1.0"
+description = "Strelka: stdlib-only Python coding-agent TUI for ai-rex, built on the py_tvision toolkit"
+readme = "README.md"
+license = { text = "MIT" }
+authors = [{ name = "Peter Kokosharov", email = "peter.kokosharov@gmail.com" }]
+requires-python = ">=3.12"
+# Runtime: Python standard library only. No third-party runtime dependencies.
+dependencies = []
+
+[project.optional-dependencies]
+# Development and test tooling only; never required at runtime.
+dev = [
+    "pytest==8.3.3",
+    "ruff==0.7.4",
+    "mypy==1.13.0",
+]
+
+[project.scripts]
+strelka = "strelka.__main__:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+include = ["strelka*", "py_tvision*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+src = ["src"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "W", "UP", "B", "C4", "SIM"]
+ignore = ["E501"]
+
+[tool.mypy]
+python_version = "3.12"
+warn_unused_configs = true
