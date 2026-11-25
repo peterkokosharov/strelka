@@ -4,8 +4,12 @@ Strelka is a text-mode coding-agent front-end for ai-rex, written in Python
 with the standard library only. It is built on `py_tvision`, a small stdlib
 TUI toolkit in the spirit of Turbo Vision that lives in this repository.
 
-Strelka belongs to the family kiko -> rex -> Strelka. Its C++ sibling is
-Layka; Strelka is the Python port of Layka with the same look and behaviour.
+Strelka is the terminal front-end of a small family of tools: kiko (an LLM
+gateway), rex (an agent runtime) and Layka (a C++ sibling client).
+
+py_tvision is inspired by Turbo Vision. It is an independent stdlib
+implementation and is not affiliated with Borland, Embarcadero or the
+magiblot/tvision project.
 
 Status: early. The `py_tvision` toolkit and the configuration layer are in
 place; the agent front-end itself is still to come.
@@ -38,7 +42,8 @@ Test tools (pytest, ruff, mypy) go into a virtual environment only:
     python -m venv .venv
     .venv/Scripts/pip install -e ".[dev]"    # Windows
     .venv/bin/pip install -e ".[dev]"        # Linux / macOS
-    python -m pytest -q
+    .venv\Scripts\python -m pytest -q    # Windows
+    .venv/bin/python -m pytest -q         # Linux / macOS
 
 ## Configuration
 

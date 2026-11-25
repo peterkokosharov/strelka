@@ -390,23 +390,7 @@ Rules for py_tvision:
 - **Name:** "Turbo Vision" is a Borland product name. "py_tvision" is fine as a working name;
   before a public release consider a neutral name (and say "inspired by Turbo Vision" in the README).
 
-## 14. Conflicts found in py_port/ (noted, not fixed)
-
-- The earlier plan builds on Textual, Rich, Pydantic and Playwright; `pyproject.toml` and
-  `requirements.txt` pin them (and disagree: `rich` 13.9.4 vs 14.2.0, `pygments` 2.18.0 vs
-  2.19.2). This breaks the stdlib-only rule and is replaced by this design.
-- `src/strelka/config.py` imports `pydantic` and `pydantic_settings`; it must move to
-  `tomllib`/`configparser` + plain dataclasses. Layka reads `layka.ini` (inih format); the Python
-  port should read the same ini, not invent TOML (check `configparser` differences: inline
-  comments, `%` interpolation - use `interpolation=None`).
-- The earlier plan describes a JSONL protocol (`token`, `tool_call`, ... outgoing `chat` with `messages`)
-  that does not match what Layka sends today (`chat` with `text`, `model`, `reset`, `stop`) - the
-  C++ `RexBridge` and ai-rex are the source of truth.
-- `requires-python = ">=3.11"` while the stated target is >= 3.12; plan files are in Bulgarian
-  while the repository's documents are English.
-- Mermaid: the earlier plan uses Playwright/kroki; Layka uses the vendored `merman` binary.
-
-## 15. UI / logic split (owner rule, 2026-11-25)
+## 14. UI / logic split (design rule, 2026-11-25)
 
 A hard line separates the **UI layer** (the py_tvision toolkit plus the
 view/widget tree) from the **logic layer** (configuration, talking to the
@@ -423,13 +407,12 @@ model / agent runtime, the JSONL bridge). Rules:
   Strelka-specific glue lives in the Strelka app layer (phase 4), not here.
 - The phase-1 demo keeps this shape: `examples/demo.py` `main()` only wires;
   all interaction lives in the `DemoApp` methods, and the demo pulls in no
-  logic module. A reviewer flagged an earlier `main` that mixed the two; this
-  structure is the fix.
+  logic module. An earlier `main` mixed the two; this structure avoids that.
 
-## 16. Key capture, configurable bindings, alternative paths (owner rule, 2026-11-25)
+## 15. Key capture, configurable bindings, alternative paths (design rule, 2026-11-25)
 
 Terminals and window managers commonly **swallow keys before the application
-sees them**: on Linux/XFCE (the owner's Mint machine) **F1** opens the
+sees them**: on some Linux desktops (XFCE) **F1** opens the
 terminal/WM help, and **F10**, **F11** and some **Ctrl-chords** are often
 grabbed too; IDE and editor terminals grab more (see section 9.2). Therefore:
 
@@ -449,7 +432,7 @@ grabbed too; IDE and editor terminals grab more (see section 9.2). Therefore:
   the manual matrix (section 11) must include a "which keys arrive" pass per
   terminal, explicitly checking F1/F10/F11 and the Ctrl-chords the app uses.
 
-### 15.1 Three layers, one core many faces (owner addendum, 2026-11-25)
+### 15.1 Three layers, one core many faces (design rule, 2026-11-25)
 
 The split is **three** layers, and the refactor must leave a clean seam for
 all three:

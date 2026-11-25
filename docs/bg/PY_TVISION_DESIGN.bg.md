@@ -392,19 +392,3 @@ magiblot и кодът, писан от нула, са под MIT (Copyright 201
 - py_tvision сам по себе си: MIT, автор Peter Kokosharov <peter.kokosharov@gmail.com>, както Layka.
 - **Име:** "Turbo Vision" е име на продукт на Borland. "py_tvision" става като работно име;
   преди публично издание обмислете неутрално име (и напишете "inspired by Turbo Vision" в README).
-
-## 14. Противоречия, открити в py_port/ (отбелязани, не поправени)
-
-- Предишният план се гради върху Textual, Rich, Pydantic и Playwright; `pyproject.toml` и
-  `requirements.txt` ги фиксират (и си противоречат: `rich` 13.9.4 срещу 14.2.0, `pygments` 2.18.0 срещу
-  2.19.2). Това нарушава правилото само за стандартна библиотека и се заменя с този дизайн.
-- `src/strelka/config.py` импортира `pydantic` и `pydantic_settings`; трябва да мине към
-  `tomllib`/`configparser` + обикновени dataclass-ове. Layka чете `layka.ini` (формат inih); Python
-  портът трябва да чете същия ini, а не да измисля TOML (проверете разликите на `configparser`: вградени
-  коментари, интерполация с `%` - ползвайте `interpolation=None`).
-- Предишният план описва JSONL протокол (`token`, `tool_call`, ... изходящо `chat` с `messages`),
-  който не съвпада с това, което Layka изпраща днес (`chat` с `text`, `model`, `reset`, `stop`) - C++
-  `RexBridge` и ai-rex са източникът на истина.
-- `requires-python = ">=3.11"`, докато заявената цел е >= 3.12; плановите файлове са на български,
-  докато документите в хранилището са на английски.
-- Mermaid: предишният план ползва Playwright/kroki; Layka ползва включения `merman` двоичен файл.
