@@ -45,6 +45,8 @@ Test tools (pytest, ruff, mypy) go into a virtual environment only:
     .venv\Scripts\python -m pytest -q    # Windows
     .venv/bin/python -m pytest -q         # Linux / macOS
 
+CI runs the tests on Windows, Linux and macOS with Python 3.12 and 3.13.
+
 ## Configuration
 
 Strelka reads `strelka.toml` from its config directory (`STRELKA_CONFIG_DIR`,
